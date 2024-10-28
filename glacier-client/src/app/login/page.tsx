@@ -17,7 +17,7 @@ export default function Login() {
     return (
         <FluentProvider theme={webDarkTheme}>
             <Head>
-                <title>Glacier OS</title>
+                <title>Glacier OS (updated by George)</title>
             </Head>
             <div className="login" style={{
                 width: "100%",
