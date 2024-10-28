@@ -38,85 +38,77 @@ const clients = {
 
 export default function LunarClientApp() {
     const [selectedClient, setSelectedClient] = useState<SelectedClientData>(clients.glacier);
+    const [activeTab, setActiveTab] = useState("home");
 
     function launchGame() {
         let launcher = document.querySelector('.lunar') as HTMLElement;
-    
         launcher.classList.add('closing');
         launcher.classList.remove('opening');
         
         if(document.getElementById('lunar-tb-app')) {
           (document.getElementById('lunar-tb-app') as HTMLDivElement).classList.remove('active');
         }
-    
+
         toggleStoreApp(nameToID(selectedClient.windowName), {
             name: selectedClient.windowName,
             unblock: true,
             url: selectedClient.windowURL,
             category: "Minecraft"
         });
-      }
+    }
+
+    function handleTabChange(tabName: string) {
+        setActiveTab(tabName);
+    }
 
     return (
         <Window noDragging={true} title="Lunar Client" id="lunar" taskbarIconID="lunar" color={'gray'} seperateBorder="1px solid #ffffff0a">
             <div className="window-full lunar-window">
                 <div className="lunar-nav">
-                    <div className=" lunar-part">
-                        <img height={45} width={50} src={contsants.LUNAR.ICON} />
+                    <div className="lunar-part" onClick={() => handleTabChange("home")}>
+                        <img height={45} width={50} src={contsants.LUNAR.ICON} alt="Home" />
                     </div>
-                    <div className="active lunar-part">
-                        <img width={30} src={contsants.LUNAR.GAMEPAD} />
+                    <div className={`lunar-part ${activeTab === "gamepad" ? "active" : ""}`} onClick={() => handleTabChange("gamepad")}>
+                        <img width={30} src={contsants.LUNAR.GAMEPAD} alt="Gamepad" />
                     </div>
-                    <div className=" lunar-part">
-                        <img width={30} src={contsants.LUNAR.PUZZLE} />
+                    <div className={`lunar-part ${activeTab === "puzzle" ? "active" : ""}`} onClick={() => handleTabChange("puzzle")}>
+                        <img width={30} src={contsants.LUNAR.PUZZLE} alt="Puzzle" />
                     </div>
-                    <div className=" lunar-part">
-                        <img width={30} src={contsants.LUNAR.EARTH} />
+                    <div className={`lunar-part ${activeTab === "earth" ? "active" : ""}`} onClick={() => handleTabChange("earth")}>
+                        <img width={30} src={contsants.LUNAR.EARTH} alt="Earth" />
                     </div>
-                    <div className=" lunar-part">
-                        <img width={30} src={contsants.LUNAR.NEWS} />
+                    <div className={`lunar-part ${activeTab === "news" ? "active" : ""}`} onClick={() => handleTabChange("news")}>
+                        <img width={30} src={contsants.LUNAR.NEWS} alt="News" />
                     </div>
-                    <div className=" lunar-part">
-                        <img width={30} src={contsants.LUNAR.CART} />
+                    <div className={`lunar-part ${activeTab === "cart" ? "active" : ""}`} onClick={() => handleTabChange("cart")}>
+                        <img width={30} src={contsants.LUNAR.CART} alt="Cart" />
                     </div>
-                    <div className="lunar-part">
-                        <img width={30} src={contsants.LUNAR.SETTINGS} />
+                    <div className={`lunar-part ${activeTab === "settings" ? "active" : ""}`} onClick={() => handleTabChange("settings")}>
+                        <img width={30} src={contsants.LUNAR.SETTINGS} alt="Settings" />
                     </div>
                 </div>
                 <div className="lunar-content">
-                    <div className="lunar-top">
-                        <img src="/image/lunargrid.svg" style={{width:'20px'}} alt="" />
-                        <span>QUICK PLAY</span>
-                        <div style={{width:'1px',margin:'0px 10px',background:'#ffffff0a',height:"100%"}}></div>
-                        <img src={contsants.ICONS.WEBMC} height={20} />
-                        <img src={"https://cdn.craftingstore.net/rPPmDHlLQ1/ff6f28fae9c78620670451be7fc86f98/nfjpzriwpydxbalceixv.png"} height={20} />
-                        <img src="https://arch.lol/apps/main/public/assets/img/extras/favicon.png?cache=1727046920" height={20} />
-                        <img src="https://www.asspixel.net/custom/templates/Lithium/uploads/ApLogoNoBackground%20(1).png" height={20} />
-                    </div>
-                    <div className="lunar-quick" style={{width:'90%',margin:'0 5%',background:'url("https://minecraft.wiki/images/NewStars.png")',backgroundPosition:"50%",height:'30%',borderRadius:'12px',border:'5px solid #ffffff20',display:'flex',alignItems:'center',justifyContent:'center'}}>
-                        <div className="lunar-quick-button" style={{width:'300px',cursor:'pointer',height:'70px',background:'url("/image/aaaa.png")',display:'flex',backgroundPosition:'50%',borderRadius:'10px',border:'5px solid #ffffff20'}}>
-                            <div onClick={launchGame} className="lunar-darken" style={{height:'100%',width:'85%',display:'flex',alignItems:'center',justifyContent:'center',fontFamily:'LunarOne',flexDirection:'column'}}>
-                                <span style={{fontSize:'25px',textShadow:'#00000050 0px 3px 2px'}}>LAUNCH GAME</span>
-                                <span style={{fontSize:'12px',textShadow:'#00000050 0px 2px 2px',fontFamily:"Segoe UI, Helvetica, Arial",display:'flex',alignItems:'center',gap:'3px'}}>
-                                    <img height={15} width={17} src={contsants.LUNAR.ICON} />
-                                    {/* Lunar Client 1.21.1 with
-                                    <img width={12} src={"/image/b.png"} />
-                                    Boost */}
-                                    Boost not installed
-                                </span>
-                            </div>
-                            <div className="lunar-darken" style={{height:'100%',width:'15%',display:'flex',alignItems:'center',justifyContent:'center',background:'#00000020',
-                                borderBottomRightRadius:'8px',
-                                borderTopRightRadius:'8px',
-                            }}>
-                                <img width={18} src={contsants.LUNAR.DOWN} />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="lunar-quick" style={{width:'90%',margin:'3% 5%',height:'38%',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-                        <div style={{width:'45%',background:'url("https://i.ytimg.com/vi/1v3Dpm-wkjI/hqdefault.jpg")',backgroundSize:'cover',backgroundPosition:"50% 50%",height:'100%',borderRadius:'12px',border:'5px solid #ffffff20',display:'flex',alignItems:'center',justifyContent:'center'}}></div>
-                        <div style={{width:'45%',background:'url("https://i.ytimg.com/vi/DF9e7BHYMFo/hqdefault.jpg")',backgroundSize:'cover',backgroundPosition:"50% 50%",height:'100%',borderRadius:'12px',border:'5px solid #ffffff20',display:'flex',alignItems:'center',justifyContent:'center'}}></div>
-                    </div>
+                    {activeTab === "home" && (
+                        <div>Home Content</div>
+                    )}
+                    {activeTab === "gamepad" && (
+                        <div>Gamepad Content</div>
+                    )}
+                    {activeTab === "puzzle" && (
+                        <div>Puzzle Content</div>
+                    )}
+                    {activeTab === "earth" && (
+                        <div>Earth Content</div>
+                    )}
+                    {activeTab === "news" && (
+                        <div>News Content</div>
+                    )}
+                    {activeTab === "cart" && (
+                        <div>Cart Content</div>
+                    )}
+                    {activeTab === "settings" && (
+                        <div>Settings Content</div>
+                    )}
                 </div>
             </div>
         </Window>
